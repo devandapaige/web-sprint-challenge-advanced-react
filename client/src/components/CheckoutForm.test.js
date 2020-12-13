@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, screen,render } from "@testing-library/react";
+import { fireEvent, screen, render } from "@testing-library/react";
 import CheckoutForm from "./CheckoutForm";
 
 // Write up the two tests here and make sure they are testing what the title shows
@@ -10,7 +10,8 @@ test("form header renders", () => {
   expect(header).toBeInTheDocument();
 });
 
-test("form shows success message on submit with form details", () => {
+test("form shows success message on submit with form details", async () => {
+  render(<CheckoutForm />);
   //INPUTS:
   const firstName = screen.getByLabelText(/first name/i);
   const lastName = screen.getByLabelText(/last name/i);
@@ -30,6 +31,8 @@ test("form shows success message on submit with form details", () => {
   fireEvent.click(submit);
 
   //Looking for "You have ordered some plants! Woo-hoo!":
-  const checkoutSuccess = await screen.getByText(/You have ordered some plants/i);
+  const checkoutSuccess = await screen.getByText(
+    /You have ordered some plants/i
+  );
   expect(checkoutSuccess).toBeInTheDocument();
 });
